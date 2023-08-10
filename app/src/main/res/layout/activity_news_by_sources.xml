@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.technology.TechnologyFragment">
-
-    <LinearLayout
+    android:orientation="vertical"
+    tools:context=".NewsBySourcesActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <EditText
+        android:layout_height="wrap_content"
+        android:background="@color/colorbottambar"/>
+
+    <EditText
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -28,8 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:id="@+id/rvList"/>
-    </LinearLayout>
-
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/loading"
         style="?android:attr/progressBarStyleLarge"
@@ -37,4 +38,5 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center" />
-</FrameLayout>
+
+</LinearLayout>

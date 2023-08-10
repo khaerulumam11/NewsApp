@@ -1,4 +1,4 @@
-package com.example.newsapp.fragment.business
+package com.example.newsapp.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,30 +7,29 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.example.newsapp.model.NewsModel
 import com.example.newsapp.model.SourceNewsModel
-import com.example.newsapp.remote.DatabaseAPI.API_KEY
-import com.example.newsapp.remote.DatabaseAPI.BASE_API_URL
+import com.example.newsapp.remote.DatabaseAPI
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.json.JSONObject
 
-class BusinessViewModel : ViewModel() {
-    private var sourceLiveData = MutableLiveData<List<SourceNewsModel.SourcesEntity>>()
-    fun getSourceNews(page:Int) {
-        AndroidNetworking.get("$BASE_API_URL/top-headlines/sources?&category=business&page=$page&apiKey=$API_KEY")
+class NewsBySourcesViewModel : ViewModel() {
+    private var newsLiveData = MutableLiveData<List<NewsModel.ArticlesEntity>>()
+    fun getNews(page:Int, sources:String,search:String) {
+        AndroidNetworking.get("${DatabaseAPI.BASE_API_URL}/top-headlines?q=$search&sources=$sources&page=$page&apiKey=${DatabaseAPI.API_KEY}")
             .setPriority(Priority.HIGH)
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject) {
-                    println("Response $response")
+                    println("Response Detail $response")
                     var gsonBuilder = GsonBuilder().serializeNulls()
                     var gson: Gson? =  gsonBuilder.create()
-                    var sourceNewsResp: SourceNewsModel = gson!!.fromJson(
+                    var sourceNewsResp: NewsModel = gson!!.fromJson(
                         response.toString(),
-                        SourceNewsModel::class.java
+                        NewsModel::class.java
                     )
-                    sourceLiveData.value = sourceNewsResp.sources
-                    println("Response Data "+ sourceNewsResp.sources?.get(0)!!.id)
+                    newsLiveData.value = sourceNewsResp.articles
                 }
 
                 override fun onError(anError: ANError) {
@@ -40,9 +39,7 @@ class BusinessViewModel : ViewModel() {
 
 
     }
-    fun observeSourceLiveData() : LiveData<List<SourceNewsModel.SourcesEntity>> {
-        return sourceLiveData
+    fun observeSourceLiveData() : LiveData<List<NewsModel.ArticlesEntity>> {
+        return newsLiveData
     }
-
-
 }
