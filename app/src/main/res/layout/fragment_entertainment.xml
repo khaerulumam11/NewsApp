@@ -5,9 +5,31 @@
     android:layout_height="match_parent"
     tools:context=".fragment.entertainment.EntertainmentFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="20dp"
+            android:autofillHints="@string/hint_search"
+            android:background="@drawable/edittext_background"
+            android:hint="@string/hint_search"
+            android:inputType="text"
+            android:padding="10dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/rvList"/>
+    </LinearLayout>
+
+
 
 </FrameLayout>

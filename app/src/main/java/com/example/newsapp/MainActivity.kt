@@ -13,6 +13,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.toolbar.title = "News App"
+        binding.toolbar.setTitleTextColor(resources.getColor(R.color.white))
         pagerAdapter = PagerAdapter(supportFragmentManager)
         binding.viewpagerMain.adapter = pagerAdapter
         binding.tabsMain.setupWithViewPager(binding.viewpagerMain)
